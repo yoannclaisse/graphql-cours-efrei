@@ -36,11 +36,17 @@ export type BookPayload = {
 export type Mutation = {
   __typename?: 'Mutation';
   addBook: BookPayload;
+  deleteBook: BookPayload;
 };
 
 
 export type MutationAddBookArgs = {
   input: BookInput;
+};
+
+
+export type MutationDeleteBookArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type Query = {
@@ -124,6 +130,7 @@ export type ResolversTypes = ResolversObject<{
   BookInput: BookInput;
   BookPayload: ResolverTypeWrapper<BookPayload>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -135,6 +142,7 @@ export type ResolversParentTypes = ResolversObject<{
   BookInput: BookInput;
   BookPayload: BookPayload;
   Boolean: Scalars['Boolean']['output'];
+  ID: Scalars['ID']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
@@ -154,6 +162,7 @@ export type BookPayloadResolvers<ContextType = any, ParentType extends Resolvers
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addBook?: Resolver<ResolversTypes['BookPayload'], ParentType, ContextType, RequireFields<MutationAddBookArgs, 'input'>>;
+  deleteBook?: Resolver<ResolversTypes['BookPayload'], ParentType, ContextType, RequireFields<MutationDeleteBookArgs, 'id'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
