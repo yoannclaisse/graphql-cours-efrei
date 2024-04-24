@@ -17,6 +17,7 @@ type BookPayload {
 type Mutation {
   addBook(input: BookInput!): BookPayload!
   deleteBook(id: ID!): BookPayload!
+  updateBook(id: ID!, input: BookInput!): BookPayload!
 }
 
 type Query {

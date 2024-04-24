@@ -5,21 +5,26 @@ import { typeDefs } from '../../graphql/src/schema.ts'
 import { Resolvers } from '../../graphql/src/resolvers.ts'
 
 const resolvers: Resolvers = {
-    Query: {
-      books: async () => await Books.find(),
+  Query: {
+    books: async () => await Books.find(),
+  },
+  Mutation: {
+    addBook: (obj, args, context) => {
+      const newBook = new Books({ title: args.input.title, author: args.input.author });
+      newBook.save();
+      return newBook;
     },
-    Mutation: {
-      addBook: (obj, args, context) => {
-        const newBook = new Books({ title: args.input.title, author: args.input.author });
-        newBook.save();
-        return newBook;
-      },
-      deleteBook: async (obj, args, context) => {
-        const deletedBook = await Books.findByIdAndDelete(args.id);
-        return deletedBook;
-      }
+    deleteBook: async (obj, args, context) => {
+      const deletedBook = await Books.findByIdAndDelete(args.id);
+      return deletedBook;
+    },
+    updateBook: async (obj, args, context) => {
+      const updatedBook = await Books.findByIdAndUpdate(args.id, args.input, { new: true });
+      return updatedBook;
     }
-  };
+  }
+};
+
 
 const server = new ApolloServer({
     typeDefs,
